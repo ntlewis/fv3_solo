@@ -31,7 +31,7 @@
 
 export BUILDDIR=/home/links/ntl203/fv3_solo/SHiELD_build
 export COMPILER=gnu
-export SCRATCHDIR=/scratch/ntl203/fv3_work
+export SCRATCHDIR=/scratch/ntl203/fv3_solo_work
 export LAUNCHER=mpirun
 
 RUN_DIR=`pwd`
@@ -72,7 +72,7 @@ COMP="repro"       # choices:  debug, repro, prod
 NUM_TOT=3  
 
 # directory structure
- WORKDIR=${SCRATCHDIR:-${BUILDDIR}}/CI/BATCH-CI/${GRID}.${MEMO}/
+ WORKDIR=${SCRATCHDIR:-${BUILDDIR}}/${GRID}.${MEMO}/
  executable=${BUILDDIR}/Build/bin/SOLO_${TYPE}.${COMP}.${MODE}.${COMPILER}.x
 
 # changeable parameters
@@ -86,7 +86,7 @@ NUM_TOT=3
     nthreads="2"
 
     # run length
-    days="30"
+    days="3"
     hours="0"
     minutes="0"
     seconds="0"
@@ -451,7 +451,7 @@ do
     echo $variables
     export basename=${File%.*.*}
     echo $basename
-    mpirun -np 2 fregrid --input_mosaic /scratch/ntl203/fv3_work/grid_files/C96_mosaic.nc \
+    mpirun -np 2 fregrid --input_mosaic ${BUILDDIR}/../grid_files/C96_mosaic.nc \
                                  --input_file $basename --interp_method conserve_order2 \
                                  --remap_file fregrid_remap_file --nlon 192 --nlat 92 --scalar_field $variables
     echo ${basename}.nc 'interpolated to lat-lon'
