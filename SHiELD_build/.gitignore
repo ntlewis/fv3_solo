@@ -1,0 +1,10 @@
+stdout*
+STDO
+old
+*.test*
+exec
+bin
+libFMS
+nceplibs
+*.out
+.lib*
