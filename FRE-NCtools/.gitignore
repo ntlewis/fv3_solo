@@ -4,6 +4,7 @@
 *.gz
 build.fre-nctools*
 build
+install
 *.exe
 *.1
 
