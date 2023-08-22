@@ -1,4 +1,4 @@
-echo " emmy environment "
+echo " conda environment "
 
 
 export FC=mpifort
