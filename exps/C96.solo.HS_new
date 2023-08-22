@@ -29,16 +29,16 @@
 #Dry baroclinic wave in hydrostatic dynamics
 #Also demonstrates the plev diagnostic capability
 
-export BUILDDIR=/home/links/ntl203/fv3_solo/SHiELD_build
+#export BUILDDIR=/home/links/ntl203/fv3_solo/SHiELD_build
 export COMPILER=gnu
-export SCRATCHDIR=/scratch/ntl203/fv3_solo_work
+#export SCRATCHDIR=/scratch/ntl203/fv3_solo_work
 export LAUNCHER=mpirun
 
 RUN_DIR=`pwd`
 SCRIPT="${RUN_DIR}/$0"
 
-if [ -z ${BUILDDIR} ] ; then
-  echo -e "\nERROR:\tset BUILDDIR to the base path /<path>/SHiELD_build/ \n"
+if [ -z ${FV3_BUILDDIR} ] ; then
+  echo -e "\nERROR:\tset FV3_BUILDDIR to the base path /<path>/SHiELD_build/ \n"
   exit 99
 fi
 
@@ -54,7 +54,7 @@ fi
 
 # configure the site
 COMPILER=${COMPILER:-intel}
-. ${BUILDDIR}/site/environment.${COMPILER}.sh
+. ${FV3_BUILDDIR}/site/environment.${COMPILER}.sh
 
 #set -x
 
@@ -65,28 +65,28 @@ export OMP_STACKSIZE=256m
 res=96
 MEMO="solo.HS_new" # trying repro executable
 TYPE="hydro"      # choices:  nh, hydro
-MODE="64bit"      # choices:  32bit, 64bit
+MODE="32bit"      # choices:  32bit, 64bit
 GRID="C$res"
 HYPT="off"         # choices:  on, off  (controls hyperthreading)
-COMP="repro"       # choices:  debug, repro, prod
-NUM_TOT=3  
+COMP="prod"       # choices:  debug, repro, prod
+NUM_TOT=6
 
 # directory structure
- WORKDIR=${SCRATCHDIR:-${BUILDDIR}}/${GRID}.${MEMO}/
- executable=${BUILDDIR}/Build/bin/SOLO_${TYPE}.${COMP}.${MODE}.${COMPILER}.x
+ WORKDIR=${FV3_SCRATCHDIR:-${FV3_BUILDDIR}}/${GRID}.${MEMO}/
+ executable=${FV3_BUILDDIR}/Build/bin/SOLO_${TYPE}.${COMP}.${MODE}.${COMPILER}.x
 
 # changeable parameters
     # dycore definitions
     npx="97"
     npy="97"
     npz="32"
-    layout_x="2"
-    layout_y="2"
+    layout_x="1"
+    layout_y="3"
     io_layout="1,1" #Want to increase this in a production run??
     nthreads="2"
 
     # run length
-    days="3"
+    days="5"
     hours="0"
     minutes="0"
     seconds="0"
@@ -340,13 +340,12 @@ cat > input.nml <<EOF
        hord_tr = 8 ! z2: changed
        adjust_dry_mass = .F.
        consv_te = 0.
-       do_sat_adj = .F.
-       do_inline_mp = .F.
        consv_am = .F.
        fill = .F.
        dwind_2d = .F.
        print_freq = 0
        warm_start = $warm_start
+       is_ideal_case = .T.
        z_tracer = .T.
        fill_dp = .F.
        adiabatic = .F.
@@ -386,6 +385,11 @@ cat > input.nml <<EOF
  &reed_sim_phys_nml
     do_reed_cond = .F.
 /
+ &integ_phys_nml
+       do_inline_mp = .T.
+       do_sat_adj = .F.
+/
+
 
 EOF
 
@@ -451,9 +455,9 @@ do
     echo $variables
     export basename=${File%.*.*}
     echo $basename
-    mpirun -np 2 fregrid --input_mosaic ${BUILDDIR}/../grid_files/C96_mosaic.nc \
+    mpirun -np 2 fregrid --input_mosaic ${FV3_BUILDDIR}/../grid_files/C96_grid_files/C96_mosaic.nc \
                                  --input_file $basename --interp_method conserve_order2 \
-                                 --remap_file fregrid_remap_file --nlon 192 --nlat 92 --scalar_field $variables
+                                 --remap_file fregrid_remap_file --nlon 288 --nlat 180 --scalar_field $variables
     echo ${basename}.nc 'interpolated to lat-lon'
     mv ${basename}.nc ${hist_dir}/
 done
