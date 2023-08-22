@@ -14,11 +14,11 @@ Instructions:
 
 5) Need to compile post processing tools... 
 
-5.1) cd into FRE-NCtools
+5.1) cd into fv3_solo/FRE-NCtools
 
-5.2) mkdir build 
+5.2) type: mkdir build 
 
-5.3) mkdir install 
+5.3) type: mkdir install 
 
 5.4) cd into build 
 
