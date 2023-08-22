@@ -28,12 +28,12 @@ Instructions:
 
 5.7) type: make install  
 
-(replace bold font with whatever your path is) 
+(replace ** font with whatever your path is) 
 
 6) Add the following to your .bashrc: 
 export PATH="**/path/to/your/**fv3_solo/FRE-NCtools/install/bin:$PATH"
 
-(replace bold font with whatever your path is) 
+(replace ** font with whatever your path is) 
 
 7) Need to compile the GCM ... 
 
@@ -49,7 +49,7 @@ export PATH="**/path/to/your/**fv3_solo/FRE-NCtools/install/bin:$PATH"
 
 9.2) export FV3_SCRATCHDIR=**/path/to/your/**fv3_solo_work/
 
-(replace bold font, and also fv3_solo_work, with whatever you've called these things) 
+(replace ** font, and also fv3_solo_work, with whatever you've called these things) 
 
 10) Source your .bashrc file so that 6) and 9) take effect: source ~/.bashrc
 
