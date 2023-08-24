@@ -83,8 +83,8 @@ implicit none
 
 !#######################################################################
 
- call FMSconstants_init ()
  call fms_init ()
+ call fmsconstants_init
  call atmos_model_init ()
 
 !   ------ atmosphere integration loop -------
