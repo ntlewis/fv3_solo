@@ -54,6 +54,8 @@
 module FMSconstants
 
   use platform_mod, only: r4_kind, r8_kind
+  !use fms_mod,      only: check_nml_error
+  use mpp_mod,      only: input_nml_file, mpp_pe, mpp_root_pe
 
   !--- default scoping
   implicit none
@@ -81,19 +83,36 @@ module FMSconstants
 #else
 #error FATAL FMSConstants error -  multiple constants macros are defined for FMS
 #endif
+  
+  real, public :: test = 123.
+  
+  namelist/fmsconstants_nml/ test, OMEGA, RADIUS
 
   !--- public interfaces
   public :: FMSConstants_init
+  
+  ! NTL: is module initialized? 
+  logical :: module_is_initialized = .FALSE. 
 
   contains
 
     !> @brief FMSconstants init routine
     subroutine FMSconstants_init
       use mpp_mod, only: stdlog
-      integer :: logunit
+      integer :: logunit, io !, ierr
       logunit = stdlog()
 
       write (logunit,'(/,80("="),/(a))') trim(constants_version)
+      if ( module_is_initialized ) return !NTL: everything below added for namelist
+      
+      read (input_nml_file, fmsconstants_nml, iostat=io)
+      !ierr = check_nml_error(io,'fmsconstants_nml')
+      if (mpp_pe() == mpp_root_pe() ) then
+         logunit = stdlog()
+         write (logunit, nml=fmsconstants_nml)
+      endif
+      
+      module_is_initialized = .TRUE. 
 
     end subroutine FMSconstants_init
 

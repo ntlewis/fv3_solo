@@ -21,9 +21,7 @@
 
 module fv_phys_mod
 
-use constants_mod,         only: grav, rdgas, rvgas, pi, cp_air, cp_vapor, hlv, kappa
-use fv_arrays_mod,         only: radius, omega ! scaled for small earth
-
+use constants_mod,         only: grav, rdgas, rvgas, pi, cp_air, cp_vapor, hlv, kappa, omega, radius
 use time_manager_mod,      only: time_type, get_time
 use gfdl_mp_mod,           only: mqs3d, wet_bulb, c_liq
 use hswf_mod,              only: Held_Suarez_Tend
@@ -682,7 +680,7 @@ contains
  real, dimension(npz):: utmp, vtmp
  real:: sday, rrg, tvm, olrm, swab, sstm, clds, hflux1, hflux2, hflux3, precip
  real:: tmp, cooling, heating
- real:: fac_sm, rate_w, rate_u, rate_v, rate_t, rate_q
+ real:: rate_w, rate_u, rate_v, rate_t, rate_q
  real:: prec
  integer  i,j,k, km, iq, k_mp
  integer  isd, ied, jsd, jed
@@ -698,10 +696,8 @@ contains
    jsd = js-ng;   jed = je + ng
 
    zvir = rvgas/rdgas - 1.
-! Factor for Small-Earth Approx.
-   fac_sm = radius / 6371.0e3
    rrg  = rdgas / grav
-   sday  = 24.*3600.*fac_sm !not sure this works right
+   sday  = 24.*3600.
 
    qflux = 0.
    rflux = 0.

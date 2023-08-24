@@ -74,7 +74,7 @@ module fv_ada_nudge_mod
  implicit none
  private
 
- real(kind=R_GRID), parameter :: radius = cnst_radius
+ real(kind=R_GRID) :: radius 
 
 ! version number of this module
 ! Include variable "version" to be written to log file.
@@ -1487,6 +1487,9 @@ endif
   integer :: isd, ied, jsd, jed
 
   integer :: stdout_unit
+
+  ! initialize radius with correct type 
+  radius = cnst_radius 
 
   stdout_unit = stdout()
 
