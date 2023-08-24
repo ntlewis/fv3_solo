@@ -509,7 +509,7 @@ module flux_exchange_mod
 
   use FMS
   use FMSconstants, only: rdgas, rvgas, cp_air, stefan, WTMAIR, &
-                          HLV, HLF, Radius, PI, CP_OCEAN, WTMCO2, WTMC
+                          HLV, HLF, Radius=>radius_2, PI, CP_OCEAN, WTMCO2, WTMC
 
 !! Components
   use land_model_mod,             only: Lnd_stock_pe

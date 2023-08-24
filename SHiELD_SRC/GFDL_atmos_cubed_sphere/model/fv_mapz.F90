@@ -26,8 +26,8 @@
 ! Revise the OpenMP code to avoid crash
 module fv_mapz_mod
 
-  use constants_mod,     only: pi=>pi_8, rvgas, rdgas, grav, hlv, hlf, cp_air, cp_vapor
-  use fv_arrays_mod,     only: radius ! scaled for small earth
+  use constants_mod,     only: pi=>pi_8, rvgas, rdgas, grav, hlv, hlf, cp_air, cp_vapor, radius=>radius_2
+  !NTLDELETE use fv_arrays_mod,     only: radius ! scaled for small earth
   use tracer_manager_mod,only: get_tracer_index, adjust_mass
   use field_manager_mod, only: MODEL_ATMOS
   use fv_grid_utils_mod, only: g_sum, ptop_min, cubed_to_latlon

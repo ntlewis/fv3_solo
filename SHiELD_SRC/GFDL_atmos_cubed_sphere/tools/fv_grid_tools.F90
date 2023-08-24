@@ -21,8 +21,8 @@
 
 module fv_grid_tools_mod
 
-  use constants_mod,  only: grav, pi=>pi_8, omega
-  use fv_arrays_mod,  only: radius ! scaled for small earth
+  use constants_mod,  only: grav, pi=>pi_8, omega, cnst_radius=>radius_2
+  !NTLDELETE use fv_arrays_mod,  only: radius ! scaled for small earth
 !  use test_cases_mod, only: small_earth_scale
   use fv_arrays_mod, only: fv_atmos_type, fv_grid_type, fv_grid_bounds_type, R_GRID
   use fv_grid_utils_mod, only: gnomonic_grids, great_circle_dist,  &
@@ -61,6 +61,7 @@ module fv_grid_tools_mod
   private
 #include <netcdf.inc>
 
+  real(kind=R_GRID) :: radius 
   real(kind=R_GRID) , parameter:: todeg = 180.0d0/pi          ! convert to degrees
   real(kind=R_GRID) , parameter:: torad = pi/180.0d0          ! convert to radians
   real(kind=R_GRID) , parameter:: missing = 1.d25
@@ -506,6 +507,9 @@ contains
     integer :: isd, ied, jsd, jed
     integer :: istart, iend, jstart, jend
     integer :: isection_s, isection_e, jsection_s, jsection_e
+
+    ! initialize radius with correct type 
+    radius = cnst_radius 
 
     is  = Atm%bd%is
     ie  = Atm%bd%ie

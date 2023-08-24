@@ -29,7 +29,7 @@ module fv_nwp_nudge_mod
 
  use external_sst_mod,  only: i_sst, j_sst, sst_ncep, sst_anom, forecast_mode
  use diag_manager_mod,  only: register_diag_field, send_data
- use constants_mod,     only: pi=>pi_8, grav, rdgas, cp_air, kappa, cnst_radius =>radius
+ use constants_mod,     only: pi=>pi_8, grav, rdgas, cp_air, kappa, cnst_radius =>radius_2
  use fms_mod,           only: write_version_number, check_nml_error
  use fms2_io_mod,       only: file_exists
  use mpp_mod,           only: mpp_error, FATAL, stdlog, get_unit, mpp_pe, input_nml_file
@@ -51,7 +51,7 @@ module fv_nwp_nudge_mod
  implicit none
  private
 
- real(kind=R_GRID), parameter :: radius = cnst_radius
+ real(kind=R_GRID) :: radius !NTLDELETE = cnst_radius
 
 ! version number of this module
 ! Include variable "version" to be written to log file.
@@ -1217,6 +1217,9 @@ module fv_nwp_nudge_mod
 ! <--- h1g, 2012-10-22
 
   real, pointer, dimension(:,:,:) :: agrid
+
+  ! initialize radius with correct type 
+  radius = cnst_radius
 
   is  = bd%is
   ie  = bd%ie
