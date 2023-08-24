@@ -21,8 +21,8 @@
 
 module fv_grid_tools_mod
 
-  use constants_mod,  only: grav, pi=>pi_8
-  use fv_arrays_mod,  only: radius, omega ! scaled for small earth
+  use constants_mod,  only: grav, pi=>pi_8, omega=>omega_2
+  use fv_arrays_mod,  only: radius !, NTLCHANGEABOVE omega ! scaled for small earth
 !  use test_cases_mod, only: small_earth_scale
   use fv_arrays_mod, only: fv_atmos_type, fv_grid_type, fv_grid_bounds_type, R_GRID
   use fv_grid_utils_mod, only: gnomonic_grids, great_circle_dist,  &

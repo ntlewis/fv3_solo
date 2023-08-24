@@ -21,8 +21,8 @@
 
 module fv_phys_mod
 
-use constants_mod,         only: grav, rdgas, rvgas, pi, cp_air, cp_vapor, hlv, kappa
-use fv_arrays_mod,         only: radius, omega ! scaled for small earth
+use constants_mod,         only: grav, rdgas, rvgas, pi, cp_air, cp_vapor, hlv, kappa, omega=>omega_2
+use fv_arrays_mod,         only: radius !NTLCHANGEABOVE, omega ! scaled for small earth
 
 use time_manager_mod,      only: time_type, get_time
 use gfdl_mp_mod,           only: mqs3d, wet_bulb, c_liq

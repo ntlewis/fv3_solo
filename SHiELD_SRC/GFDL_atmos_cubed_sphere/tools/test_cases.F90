@@ -21,8 +21,8 @@
 
  module test_cases_mod
 
-      use constants_mod,     only: cnst_radius=>radius, pi=>pi_8, cnst_omega=>omega, grav, kappa, rdgas, cp_air, rvgas
-      use fv_arrays_mod,     only: radius, omega ! scaled for small earth
+      use constants_mod,     only: cnst_radius=>radius, pi=>pi_8, omega=>omega_2, grav, kappa, rdgas, cp_air, rvgas
+      use fv_arrays_mod,     only: radius !NTLCHANGEABOVE, omega ! scaled for small earth
       use init_hydro_mod,    only: p_var, hydro_eq, hydro_eq_ext
       use fv_mp_mod,         only: is_master,        &
                                    domain_decomp, fill_corners, XDir, YDir, &
@@ -190,7 +190,8 @@
       public :: case9_forcing1, case9_forcing2, case51_forcing
       public :: init_double_periodic
       public :: checker_tracers
-      public :: radius, omega, small_earth_scale, w_forcing
+      public :: radius !NTLCHANGEABOVE, omega, 
+      public :: small_earth_scale, w_forcing
 
   INTERFACE mp_update_dwinds
      MODULE PROCEDURE mp_update_dwinds_2d
@@ -6163,7 +6164,7 @@ end subroutine terminator_tracers
 
         if (.not. (small_earth_scale == 1.0)) then
            radius = cnst_radius / small_earth_scale
-           omega = cnst_omega * small_earth_scale
+           !NTLCHANGEABOVE omega = cnst_omega * small_earth_scale
         endif
 
       end subroutine read_namelist_test_case_nml
