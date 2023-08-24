@@ -71,7 +71,7 @@ module atm_land_ice_flux_exchange_mod
 
 !! FMS
 use FMS
-use FMSconstants, only: rdgas, rvgas, cp_air, stefan, WTMAIR, HLV, HLF, Radius=>radius_2, &
+use FMSconstants, only: rdgas, rvgas, cp_air, stefan, WTMAIR, HLV, HLF, Radius, &
                         PI, CP_OCEAN, WTMCO2, WTMC, EPSLN, GRAV
 
   implicit none

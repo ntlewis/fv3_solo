@@ -42,7 +42,7 @@ use fms_mod,          only:  error_mesg, &
                              FATAL, write_version_number, &
                              stdlog
 use fms2_io_mod,      only:  file_exists
-use constants_mod,    only:  radius=>radius_2, constants_init
+use constants_mod,    only:  radius, constants_init
 use mpp_mod,          only:  mpp_sum, mpp_init
 use ensemble_manager_mod, only : get_ensemble_id, get_ensemble_size
 

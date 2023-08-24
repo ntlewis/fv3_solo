@@ -37,7 +37,7 @@ module fv_ada_nudge_mod
 
  use external_sst_mod,  only: i_sst, j_sst, sst_ncep, sst_anom, forecast_mode
  use diag_manager_mod,  only: register_diag_field, send_data
- use constants_mod,     only: pi, grav, rdgas, cp_air, kappa, cnst_radius=>radius_2, seconds_per_day
+ use constants_mod,     only: pi, grav, rdgas, cp_air, kappa, cnst_radius=>radius, seconds_per_day
  use fms_mod,           only: write_version_number, check_nml_error
  use mpp_mod,           only: mpp_error, FATAL, stdlog, get_unit, mpp_pe, input_nml_file
  use mpp_mod,           only: mpp_root_pe, stdout ! snz
@@ -74,7 +74,7 @@ module fv_ada_nudge_mod
  implicit none
  private
 
- real(kind=R_GRID) :: radius !NTLDELETE = cnst_radius
+ real(kind=R_GRID) :: radius 
 
 ! version number of this module
 ! Include variable "version" to be written to log file.

@@ -33,7 +33,7 @@ module mosaic_mod
 use mpp_mod,    only : mpp_error, FATAL, mpp_pe, mpp_root_pe
 use mpp_io_mod, only : MPP_MULTI
 use fms_io_mod, only : dimension_size, field_exist, read_data, read_compressed
-use constants_mod, only : PI, RADIUS=>RADIUS_2
+use constants_mod, only : PI, RADIUS
 
 implicit none
 private

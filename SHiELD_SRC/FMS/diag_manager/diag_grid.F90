@@ -55,7 +55,7 @@ use platform_mod
   !   </FUTURE>
   ! </INFO>
 
-  USE constants_mod, ONLY: DEG_TO_RAD, RAD_TO_DEG, RADIUS=>RADIUS_2
+  USE constants_mod, ONLY: DEG_TO_RAD, RAD_TO_DEG, RADIUS
   USE fms_mod, ONLY: write_version_number, error_mesg, WARNING, FATAL,&
        & mpp_pe
   USE mpp_mod, ONLY: mpp_root_pe, mpp_npes, mpp_max, mpp_min

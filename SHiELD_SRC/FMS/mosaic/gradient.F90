@@ -29,7 +29,7 @@
 module gradient_mod
 
 use mpp_mod,       only : mpp_error, FATAL
-use constants_mod, only : RADIUS=>RADIUS_2
+use constants_mod, only : RADIUS
 use platform_mod
 
 implicit none

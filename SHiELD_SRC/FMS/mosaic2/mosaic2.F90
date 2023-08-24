@@ -35,7 +35,7 @@ module mosaic2_mod
 
 use mpp_mod,    only : mpp_error, FATAL, mpp_pe, mpp_root_pe
 use mpp_domains_mod, only : domain2D, mpp_get_current_ntile, mpp_get_tile_id
-use constants_mod, only : PI, RADIUS=>RADIUS_2
+use constants_mod, only : PI, RADIUS
 use fms2_io_mod,   only : FmsNetcdfFile_t, open_file, close_file, get_dimension_size
 use fms2_io_mod,   only : read_data, variable_exists
 use platform_mod

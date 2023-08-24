@@ -24,7 +24,7 @@ module grid_mod
 #ifdef use_deprecated_io
 
 use mpp_mod, only : mpp_root_pe, uppercase, lowercase, FATAL, NOTE, mpp_error
-use constants_mod, only : PI, radius=>radius_2
+use constants_mod, only : PI, radius
 use fms_io_mod, only : get_great_circle_algorithm, get_global_att_value, string, &
                        field_exist, field_size, read_data
 use mosaic_mod, only : get_mosaic_ntiles, get_mosaic_xgrid_size, get_mosaic_grid_sizes, &

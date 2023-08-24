@@ -29,11 +29,11 @@ module fv_arrays_mod
   use horiz_interp_type_mod, only: horiz_interp_type
   use mpp_mod,               only: mpp_broadcast
   use platform_mod,          only: r8_kind
-  !NTLDELETE use constants_mod,         only: cnst_radius => radius
+
   public
 
   integer, public, parameter :: R_GRID = r8_kind
-  !NTLDELETE real(kind=r8_kind), public :: radius = cnst_radius
+
 
   !Several 'auxiliary' structures are introduced here. These are for
   ! the internal use by certain modules, and although fv_atmos_type
