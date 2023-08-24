@@ -86,7 +86,7 @@ module FMSconstants
   
   real, public :: test = 123.
   
-  namelist/fmsconstants_nml/ test, OMEGA_2
+  namelist/fmsconstants_nml/ test, OMEGA
 
   !--- public interfaces
   public :: FMSConstants_init
