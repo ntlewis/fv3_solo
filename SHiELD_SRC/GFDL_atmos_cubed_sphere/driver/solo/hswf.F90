@@ -94,7 +94,7 @@ contains
       real  relx, tau
       real  t_st, t_ms
       real  rdt, f1
-      real rad_ratio, kf_day
+      real kf_day
       real rd_zur_rad
 
       ty = 60.0
@@ -109,16 +109,15 @@ contains
       rdt = 1. / pdt
 
 !--------------------------
-      rad_ratio = radius / 6371.0e3
 
-      kf_day = sday * rad_ratio
+      kf_day = sday
       rkv = pdt / kf_day
       rka = pdt / (40.*kf_day)
       rks = pdt / (4.0*kf_day)
 
 ! For strat-mesosphere
-      t_ms = 10.*rad_ratio
-      t_st = 40.*rad_ratio
+      t_ms = 10.
+      t_st = 40.
 
       tau = (t_st - t_ms) / log(100.)
       rms = pdt/(t_ms*sday)
