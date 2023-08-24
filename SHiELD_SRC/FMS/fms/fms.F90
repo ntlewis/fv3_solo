@@ -118,6 +118,7 @@ module fms_mod
 !
 !-----------------------------------------------------------------------
 
+use     fmsconstants, only: fmsconstants_init
 use          mpp_mod, only:  mpp_error, NOTE, WARNING, FATAL,    &
                              mpp_set_warn_level,                 &
                              mpp_transmit, ALL_PES,              &
@@ -383,6 +384,8 @@ subroutine fms_init (localcomm, alt_input_nml_path)
 !---- read namelist input ----
 
     call nml_error_init()  ! first initialize namelist iostat error codes
+
+    call fmsconstants_init() ! initialize constants 
 
     read (input_nml_file, fms_nml, iostat=io)
     ierr = check_nml_error(io,'fms_nml')
