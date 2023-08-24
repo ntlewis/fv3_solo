@@ -34,6 +34,7 @@ real(kind=RKIND),   public, parameter :: RADIAN      = RAD_TO_DEG             !<
 
 !--- Earth physical constants
 real(kind=RKIND),   public, parameter :: RADIUS             = 6.3712E+6_r8_kind  !< Radius of the Earth [m]
+real(kind=RKIND),   public            :: RADIUS_2           = 6.3712E+6_r8_kind  !< Dummy Radius of the Earth [m]
 real(kind=RKIND),   public            :: OMEGA              = 7.2921E-5_r8_kind  !< Rotation rate of the Earth [1/s]
 real(kind=r8_kind), public, parameter :: GRAV_8             = 9.80665_r8_kind    !< Acceleration due to gravity
                                                                                  !! [m/s^2] (REAL(KIND=8))
