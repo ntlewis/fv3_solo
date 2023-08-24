@@ -680,7 +680,7 @@ contains
  real, dimension(npz):: utmp, vtmp
  real:: sday, rrg, tvm, olrm, swab, sstm, clds, hflux1, hflux2, hflux3, precip
  real:: tmp, cooling, heating
- real:: fac_sm, rate_w, rate_u, rate_v, rate_t, rate_q
+ real:: rate_w, rate_u, rate_v, rate_t, rate_q
  real:: prec
  integer  i,j,k, km, iq, k_mp
  integer  isd, ied, jsd, jed
@@ -696,10 +696,8 @@ contains
    jsd = js-ng;   jed = je + ng
 
    zvir = rvgas/rdgas - 1.
-! Factor for Small-Earth Approx.
-   fac_sm = radius / 6371.0e3
    rrg  = rdgas / grav
-   sday  = 24.*3600.*fac_sm !not sure this works right
+   sday  = 24.*3600.
 
    qflux = 0.
    rflux = 0.
