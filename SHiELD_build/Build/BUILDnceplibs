@@ -58,6 +58,7 @@ version_w3nco="v2.4.1"
 # EXTERNAL_LIBS is set if using external location for storage of nceplibs
 if [ -z ${NCEP_DIR} ] ; then
    BUILD_ROOT=${PWD%/*}
+   SHiELD_SRC=${PWD%/*/*}/SHiELD_SRC/
    NCEP_DIR=${BUILD_ROOT}/Build
    if [ ! -z ${EXTERNAL_LIBS} ] ; then
    NCEP_DIR=${EXTERNAL_LIBS}
@@ -74,28 +75,32 @@ cd $nceplibs_dir
 #Define common cmake flags
 cmake_flags="-DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_C_STANDARD=99"
 
-git clone -b $version_bacio https://github.com/NOAA-EMC/NCEPLIBS-bacio
+#git clone -b $version_bacio https://github.com/NOAA-EMC/NCEPLIBS-bacio
+cp -r ${SHiELD_SRC}/nceplibs/NCEPLIBS-bacio NCEPLIBS-bacio
 pushd NCEPLIBS-bacio
 cmake ${cmake_flags} -DCMAKE_INSTALL_PREFIX=$nceplibs_dir/NCEPLIBS-bacio/install .
 make -j8
 make install
 popd
 
-git clone -b $version_sp https://github.com/NOAA-EMC/NCEPLIBS-sp
+#git clone -b $version_sp https://github.com/NOAA-EMC/NCEPLIBS-sp
+cp -r ${SHiELD_SRC}/nceplibs/NCEPLIBS-sp NCEPLIBS-sp
 pushd NCEPLIBS-sp
 cmake ${cmake_flags} -DCMAKE_INSTALL_PREFIX=$nceplibs_dir/NCEPLIBS-sp/install .
 make -j8 sp_d
 make install
 popd
 
-git clone -b $version_w3emc https://github.com/NOAA-EMC/NCEPLIBS-w3emc
+#git clone -b $version_w3emc https://github.com/NOAA-EMC/NCEPLIBS-w3emc
+cp -r ${SHiELD_SRC}/nceplibs/NCEPLIBS-w3emc NCEPLIBS-w3emc
 pushd NCEPLIBS-w3emc
 cmake ${cmake_flags} -DCMAKE_INSTALL_PREFIX=$nceplibs_dir/NCEPLIBS-w3emc/install -DCMAKE_PREFIX_PATH=$nceplibs_dir/NCEPLIBS-bacio/install/lib/cmake/bacio/ .
 make -j8 w3emc_d
 make install
 popd
 
-git clone -b $version_w3nco https://github.com/NOAA-EMC/NCEPLIBS-w3nco
+#git clone -b $version_w3nco https://github.com/NOAA-EMC/NCEPLIBS-w3nco
+cp -r ${SHiELD_SRC}/nceplibs/NCEPLIBS-w3nco NCEPLIBS-w3nco
 pushd NCEPLIBS-w3nco
 cmake ${cmake_flags} -DCMAKE_INSTALL_PREFIX=$nceplibs_dir/NCEPLIBS-w3nco/install .
 make -j8 w3nco_d

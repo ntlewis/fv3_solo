@@ -27,6 +27,7 @@
 #include "mpp_io.h"
 #include "tool_util.h"
 #include "topog.h"
+#include "mosaic_util.h"
 
 char *usage[] = {
   "",

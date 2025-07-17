@@ -30,7 +30,7 @@
 #Also demonstrates the plev diagnostic capability
 
 #export BUILDDIR=/home/links/ntl203/fv3_solo/SHiELD_build
-export COMPILER=gnu
+export COMPILER=intel
 #export SCRATCHDIR=/scratch/ntl203/fv3_solo_work
 export LAUNCHER=mpirun
 
@@ -69,10 +69,14 @@ MODE="32bit"      # choices:  32bit, 64bit
 GRID="C$res"
 HYPT="off"         # choices:  on, off  (controls hyperthreading)
 COMP="prod"       # choices:  debug, repro, prod
-NUM_TOT=6  
+NUM_TOT=1  
+
+layout_x="2"
+layout_y="2"
+npes=`expr ${layout_x} \* ${layout_y} \* 6 `
 
 # directory structure
- WORKDIR=${FV3_SCRATCHDIR:-${FV3_BUILDDIR}}/${GRID}.${MEMO}/
+ WORKDIR=${FV3_SCRATCHDIR:-${FV3_BUILDDIR}}/${GRID}.${MEMO}.NP${npes}.${HYPT}.${MODE}/
  executable=${FV3_BUILDDIR}/Build/bin/SOLO_${TYPE}.${COMP}.${MODE}.${COMPILER}.x
 
 # changeable parameters
@@ -80,17 +84,17 @@ NUM_TOT=6
     npx="49"
     npy="49"
     npz="32"
-    layout_x="1"
-    layout_y="3"
+#    layout_x="2"
+#    layout_y="2"
     io_layout="1,1" #Want to increase this in a production run??
-    nthreads="2"
+    nthreads="1"
 
     # run length
-    days="5"
+    days="30"
     hours="0"
     minutes="0"
     seconds="0"
-    dt_atmos="1800"
+    dt_atmos="600"
 
 mkdir -p $WORKDIR/restart 
 RST_COUNT=$WORKDIR/restart/rst.count 
@@ -102,6 +106,7 @@ else
     RESTART_RUN="F"
 fi 
 echo 'I AM HERE' $num $RESTART_RUN
+echo $curr_date
 if [ ${RESTART_RUN} == "F" ] ; then 
 
     rm -rf $WORKDIR/rundir 
@@ -160,7 +165,7 @@ fi
 skip=`expr ${nthreads} \/ ${div}`
 
 # when running with threads, need to use the following command
-npes=`expr ${layout_x} \* ${layout_y} \* 6 `
+# npes=`expr ${layout_x} \* ${layout_y} \* 6 `
 LAUNCHER=${LAUNCHER:-srun}
 if [ ${LAUNCHER} = 'srun' ] ; then
     export SLURM_CPU_BIND=verbose
@@ -221,9 +226,9 @@ ${GRID}.${MODE}
 #Layer-mean fields
  "dynamics", "t_plev_ave", "t_plev_ave", "atmos_daily",  "all",  .false.,  "none",  2
 ### Chemistry tracers
- "dynamics",  "acl",         "acl",        "atmos_daily", "all", .false.,  "none", 2
- "dynamics",  "acl2",        "acl2",       "atmos_daily", "all", .false.,  "none", 2
- "dynamics",  "acly",        "acly",       "atmos_daily", "all", .false.,  "none", 2
+# "dynamics",  "acl",         "acl",        "atmos_daily", "all", .false.,  "none", 2
+# "dynamics",  "acl2",        "acl2",       "atmos_daily", "all", .false.,  "none", 2
+# "dynamics",  "acly",        "acly",       "atmos_daily", "all", .false.,  "none", 2
 #### Integrated fields
  "dynamics",  "slp",         "PRMSL",      "atmos_daily", "all", .false.,  "none", 2
  "dynamics",  "ps",          "PRESsfc",     "atmos_daily", "all", .false., "none", 2
@@ -246,16 +251,6 @@ cat > field_table <<EOF
 # specific humidity for moist runs
  "TRACER", "atmos_mod", "sphum"
            "longname",     "specific humidity"
-           "units",        "kg/kg"
-       "profile_type", "fixed", "surface_value=1.e30" /
-#idealized tracers
- "TRACER", "atmos_mod", "cl"
-           "longname",     "cl"
-           "units",        "kg/kg"
-       "profile_type", "fixed", "surface_value=1.e30" /
-#idealized tracers
- "TRACER", "atmos_mod", "cl2"
-           "longname",     "cl2"
            "units",        "kg/kg"
        "profile_type", "fixed", "surface_value=1.e30" /
 EOF
@@ -343,7 +338,7 @@ cat > input.nml <<EOF
        consv_am = .F.
        fill = .F.
        dwind_2d = .F.
-       print_freq = 0
+       print_freq = 24
        warm_start = $warm_start
        is_ideal_case = .T.
        z_tracer = .T.
@@ -364,7 +359,6 @@ cat > input.nml <<EOF
        minutes = $minutes
        seconds = $seconds
        dt_atmos = $dt_atmos
-       current_time =  $curr_date
        atmos_nthreads = $nthreads
        use_hyper_thread = $hyperthread
 /
