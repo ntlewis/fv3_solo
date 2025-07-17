@@ -51,7 +51,7 @@ module fv_nwp_nudge_mod
  implicit none
  private
 
- real(kind=R_GRID) :: radius 
+ real(kind=R_GRID), parameter :: radius = cnst_radius
 
 ! version number of this module
 ! Include variable "version" to be written to log file.
@@ -1217,9 +1217,6 @@ module fv_nwp_nudge_mod
 ! <--- h1g, 2012-10-22
 
   real, pointer, dimension(:,:,:) :: agrid
-
-  ! initialize radius with correct type 
-  radius = cnst_radius
 
   is  = bd%is
   ie  = bd%ie

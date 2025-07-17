@@ -20,7 +20,8 @@
 !***********************************************************************
 
 module fv_dynamics_mod
-   use constants_mod,       only: grav, pi=>pi_8, hlv, rdgas, rvgas, cp_vapor, omega, radius
+   use constants_mod,       only: grav, pi=>pi_8, hlv, rdgas, rvgas, cp_vapor
+   use fv_arrays_mod,       only: radius, omega ! scaled for small earth
    use dyn_core_mod,        only: dyn_core, del2_cubed, init_ijk_mem
    use fv_mapz_mod,         only: compute_total_energy, Lagrangian_to_Eulerian, moist_cv, moist_cp
    use fv_tracer2d_mod,     only: tracer_2d, tracer_2d_1L, tracer_2d_nested

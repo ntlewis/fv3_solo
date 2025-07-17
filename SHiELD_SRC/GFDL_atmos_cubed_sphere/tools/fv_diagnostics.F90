@@ -25,7 +25,8 @@
 module fv_diagnostics_mod
 
  use constants_mod,      only: grav, rdgas, rvgas, pi=>pi_8, kappa, WTMAIR, WTMCO2, WTMH2O, &
-                               hlv, cp_air, cp_vapor, TFREEZE, radius
+                               hlv, cp_air, cp_vapor, TFREEZE
+ use fv_arrays_mod,      only: radius ! scaled for small earth
  use fms_mod,            only: write_version_number
  use time_manager_mod,   only: time_type, get_date, get_time
  use mpp_domains_mod,    only: domain2d, mpp_update_domains, DGRID_NE, NORTH, EAST

@@ -21,7 +21,8 @@
 
 module dyn_core_mod
 
-  use constants_mod,      only: rdgas, cp_air, pi, radius
+  use constants_mod,      only: rdgas, cp_air, pi
+  use fv_arrays_mod,      only: radius ! scaled for small earth
   use mpp_mod,            only: mpp_pe
   use mpp_domains_mod,    only: CGRID_NE, DGRID_NE, mpp_get_boundary, mpp_update_domains,  &
                                 domain2d
