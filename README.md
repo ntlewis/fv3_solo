@@ -16,6 +16,8 @@ Instructions:
 
 5.1) cd into fv3_solo/FRE-NCtools
 
+5.1.5) type autoreconf -i
+
 5.2) type: mkdir build 
 
 5.3) type: mkdir install 
